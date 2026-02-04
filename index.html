@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clawpital</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <script src="config.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <audio id="bgMusic" src="Heliograph.mp3" preload="auto"></audio>
+    <div class="house" id="h"> 
+        <div class="h-lights">
+          <div class="h-light"></div>
+          <div class="h-light"></div>
+          <div class="h-light"></div>
+          <div class="h-light"></div>
+          <div class="h-light"></div>
+          <div class="h-light"></div>
+        </div>
+        <div class="h-shadow"></div>
+        <div class="alt">
+          <div class="alt__front face"> </div>
+          <div class="alt__back face"> </div>
+          <div class="alt__right face"> </div>
+          <div class="alt__left face"> </div>
+          <div class="alt__top face"> 
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+          </div>
+          <div class="alt__bottom face"> </div>
+        </div>
+        <div class="alb">
+          <div class="alb__front face"> </div>
+          <div class="alb__back face"> </div>
+          <div class="alb__right face"> </div>
+          <div class="alb__left face"> </div>
+          <div class="alb__top face"> </div>
+          <div class="alb__bottom face"> </div>
+        </div>
+        <div class="arb">
+          <div class="arb__front face"> </div>
+          <div class="arb__back face"> </div>
+          <div class="arb__right face"> </div>
+          <div class="arb__left face"> </div>
+          <div class="arb__top face"> </div>
+          <div class="arb__bottom face"> </div>
+        </div>
+        <div class="blt">
+          <div class="blt__front face"> </div>
+          <div class="blt__back face"> </div>
+          <div class="blt__right face"> </div>
+          <div class="blt__left face"> </div>
+          <div class="blt__top face"> </div>
+          <div class="blt__bottom face"> </div>
+        </div>
+        <div class="blt2">
+          <div class="blt2__front face"> </div>
+          <div class="blt2__back face"> </div>
+          <div class="blt2__right face"> </div>
+          <div class="blt2__left face"> </div>
+          <div class="blt2__top face"> </div>
+          <div class="blt2__bottom face"> </div>
+        </div>
+        <div class="blb">
+          <div class="blb__front face"> </div>
+          <div class="blb__back face"> </div>
+          <div class="blb__right face"> </div>
+          <div class="blb__left face"> </div>
+          <div class="blb__top face"> </div>
+          <div class="blb__bottom face"> </div>
+        </div>
+        <div class="blb2">
+          <div class="blb2__front face"> </div>
+          <div class="blb2__back face"> </div>
+          <div class="blb2__right face"> </div>
+          <div class="blb2__left face"> </div>
+          <div class="blb2__top face"> </div>
+          <div class="blb2__bottom face"> </div>
+        </div>
+        <div class="puerta-c">
+          <div class="puerta">
+            <div class="puerta__front face"> </div>
+            <div class="puerta__back face"> </div>
+            <div class="puerta__right face"> </div>
+            <div class="puerta__left face"> </div>
+            <div class="puerta__top face"> </div>
+            <div class="puerta__bottom face"> </div>
+          </div>
+          <div class="puerta-l">
+            <div class="puerta-l__front face"> </div>
+            <div class="puerta-l__back face"> </div>
+            <div class="puerta-l__right face"> </div>
+            <div class="puerta-l__left face"> </div>
+            <div class="puerta-l__top face"> </div>
+            <div class="puerta-l__bottom face"> </div>
+          </div>
+          <div class="puerta-r">
+            <div class="puerta-r__front face"> </div>
+            <div class="puerta-r__back face"> </div>
+            <div class="puerta-r__right face"> </div>
+            <div class="puerta-r__left face"> </div>
+            <div class="puerta-r__top face"> </div>
+            <div class="puerta-r__bottom face"> </div>
+          </div>
+          <div class="puerta-t">
+            <div class="puerta-t__front face"> </div>
+            <div class="puerta-t__back face"> </div>
+            <div class="puerta-t__right face"> </div>
+            <div class="puerta-t__left face"> </div>
+            <div class="puerta-t__top face"> </div>
+            <div class="puerta-t__bottom face"> </div>
+          </div>
+        </div>
+        <div class="cuadro-l" data-painting="painting_left">
+          <div class="cuadro-l__front face"> </div>
+          <div class="cuadro-l__back face"> </div>
+          <div class="cuadro-l__right face"> </div>
+          <div class="cuadro-l__left face"> </div>
+          <div class="cuadro-l__top face"> </div>
+          <div class="cuadro-l__bottom face"> </div>
+        </div>
+        <div class="cuadro-r" data-painting="painting_right">
+          <div class="cuadro-r__front face"> </div>
+          <div class="cuadro-r__back face"> </div>
+          <div class="cuadro-r__right face"> </div>
+          <div class="cuadro-r__left face"> </div>
+          <div class="cuadro-r__top face"> </div>
+          <div class="cuadro-r__bottom face"> </div>
+        </div>
+        <div class="librero">
+          <div class="librero__front face"> </div>
+          <div class="librero__back face"> </div>
+          <div class="librero__right face"> </div>
+          <div class="librero__left face"> </div>
+          <div class="librero__top face"> </div>
+          <div class="librero__bottom face">    </div>
+        </div>
+        <div class="libros"> 
+          <div class="libro">
+            <div class="libro__front face"> </div>
+            <div class="libro__back face"> </div>
+            <div class="libro__right face"> </div>
+            <div class="libro__left face"> </div>
+            <div class="libro__top face"> </div>
+            <div class="libro__bottom face"> </div>
+          </div>
+          <div class="libro">
+            <div class="libro__front face"> </div>
+            <div class="libro__back face"> </div>
+            <div class="libro__right face"> </div>
+            <div class="libro__left face"> </div>
+            <div class="libro__top face"> </div>
+            <div class="libro__bottom face"> </div>
+          </div>
+          <div class="libro">
+            <div class="libro__front face"> </div>
+            <div class="libro__back face"> </div>
+            <div class="libro__right face"> </div>
+            <div class="libro__left face"> </div>
+            <div class="libro__top face"> </div>
+            <div class="libro__bottom face"> </div>
+          </div>
+          <div class="libro">
+            <div class="libro__front face"> </div>
+            <div class="libro__back face"> </div>
+            <div class="libro__right face"> </div>
+            <div class="libro__left face"> </div>
+            <div class="libro__top face"> </div>
+            <div class="libro__bottom face"> </div>
+          </div>
+          <div class="libro">
+            <div class="libro__front face"> </div>
+            <div class="libro__back face"> </div>
+            <div class="libro__right face"> </div>
+            <div class="libro__left face"> </div>
+            <div class="libro__top face"> </div>
+            <div class="libro__bottom face"> </div>
+          </div>
+          <div class="libro">
+            <div class="libro__front face"> </div>
+            <div class="libro__back face"> </div>
+            <div class="libro__right face"> </div>
+            <div class="libro__left face"> </div>
+            <div class="libro__top face"> </div>
+            <div class="libro__bottom face"> </div>
+          </div>
+        </div>
+        <div class="fotos"> 
+          <div class="foto">
+            <div class="foto__front face"> </div>
+            <div class="foto__back face"> </div>
+            <div class="foto__right face"> </div>
+            <div class="foto__left face"> </div>
+            <div class="foto__top face"> </div>
+            <div class="foto__bottom face"> </div>
+          </div>
+          <div class="foto">
+            <div class="foto__front face"> </div>
+            <div class="foto__back face"> </div>
+            <div class="foto__right face"> </div>
+            <div class="foto__left face"> </div>
+            <div class="foto__top face"> </div>
+            <div class="foto__bottom face"> </div>
+          </div>
+        </div>
+        <div class="cajas"> 
+          <div class="caja">
+            <div class="caja__front face"> </div>
+            <div class="caja__back face"> </div>
+            <div class="caja__right face"> </div>
+            <div class="caja__left face"> </div>
+            <div class="caja__top face"> </div>
+            <div class="caja__bottom face"> </div>
+          </div>
+          <div class="caja">
+            <div class="caja__front face"> </div>
+            <div class="caja__back face"> </div>
+            <div class="caja__right face"> </div>
+            <div class="caja__left face"> </div>
+            <div class="caja__top face"> </div>
+            <div class="caja__bottom face"> </div>
+          </div>
+          <div class="caja">
+            <div class="caja__front face"> </div>
+            <div class="caja__back face"> </div>
+            <div class="caja__right face"> </div>
+            <div class="caja__left face"> </div>
+            <div class="caja__top face"> </div>
+            <div class="caja__bottom face"> </div>
+          </div>
+        </div>
+        <div class="tv">
+          <div class="tv__front face"> </div>
+          <div class="tv__back face"> </div>
+          <div class="tv__right face">
+            <video class="tv-video" autoplay loop muted playsinline>
+              <source src="tv-video.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="tv__left face"> </div>
+          <div class="tv__top face"> </div>
+          <div class="tv__bottom face"> </div>
+        </div>
+        <div class="repisa-t">
+          <div class="repisa-t__front face"> </div>
+          <div class="repisa-t__back face"> </div>
+          <div class="repisa-t__right face"> </div>
+          <div class="repisa-t__left face"> </div>
+          <div class="repisa-t__top face"> </div>
+          <div class="repisa-t__bottom face"> </div>
+        </div>
+        <div class="repisa-b">
+          <div class="repisa-b__front face"> </div>
+          <div class="repisa-b__back face"> </div>
+          <div class="repisa-b__right face"> </div>
+          <div class="repisa-b__left face"> </div>
+          <div class="repisa-b__top face"> </div>
+          <div class="repisa-b__bottom face"> </div>
+        </div>
+        <div class="bocina-l">
+          <div class="bocina-l__front face"> </div>
+          <div class="bocina-l__back face"> </div>
+          <div class="bocina-l__right face"> </div>
+          <div class="bocina-l__left face"> </div>
+          <div class="bocina-l__top face"> </div>
+          <div class="bocina-l__bottom face"> </div>
+        </div>
+        <div class="bocina-r">
+          <div class="bocina-r__front face"> </div>
+          <div class="bocina-r__back face"> </div>
+          <div class="bocina-r__right face"> </div>
+          <div class="bocina-r__left face"> </div>
+          <div class="bocina-r__top face"> </div>
+          <div class="bocina-r__bottom face"> </div>
+        </div>
+        <div class="muro">
+          <div class="muro__front face"> </div>
+          <div class="muro__back face"> </div>
+          <div class="muro__right face"> </div>
+          <div class="muro__left face"> </div>
+          <div class="muro__top face"> </div>
+          <div class="muro__bottom face"> </div>
+        </div>
+        <div class="sillon-c">
+          <div class="sillon-b">
+            <div class="sillon-b__front face"> </div>
+            <div class="sillon-b__back face"> </div>
+            <div class="sillon-b__right face"> </div>
+            <div class="sillon-b__left face"> </div>
+            <div class="sillon-b__top face"> </div>
+            <div class="sillon-b__bottom face"> </div>
+          </div>
+          <div class="sillon-t">
+            <div class="sillon-t__front face"> </div>
+            <div class="sillon-t__back face"> </div>
+            <div class="sillon-t__right face"> </div>
+            <div class="sillon-t__left face"> </div>
+            <div class="sillon-t__top face"> </div>
+            <div class="sillon-t__bottom face"> </div>
+          </div>
+          <div class="sillon-l">
+            <div class="sillon-l__front face"> </div>
+            <div class="sillon-l__back face"> </div>
+            <div class="sillon-l__right face"> </div>
+            <div class="sillon-l__left face"> </div>
+            <div class="sillon-l__top face"> </div>
+            <div class="sillon-l__bottom face"> </div>
+          </div>
+          <div class="sillon-r">
+            <div class="sillon-r__front face"> </div>
+            <div class="sillon-r__back face"> </div>
+            <div class="sillon-r__right face"> </div>
+            <div class="sillon-r__left face"> </div>
+            <div class="sillon-r__top face"> </div>
+            <div class="sillon-r__bottom face"> </div>
+          </div>
+        </div>
+        <div class="mesa-c">
+          <div class="mesa">
+            <div class="mesa__front face"> </div>
+            <div class="mesa__back face"> </div>
+            <div class="mesa__right face"> </div>
+            <div class="mesa__left face"> </div>
+            <div class="mesa__top face"> </div>
+            <div class="mesa__bottom face"> </div>
+          </div>
+          <div class="mesa-p">
+            <div class="mesa-p__front face"> </div>
+            <div class="mesa-p__back face"> </div>
+            <div class="mesa-p__right face"> </div>
+            <div class="mesa-p__left face"> </div>
+            <div class="mesa-p__top face"> </div>
+            <div class="mesa-p__bottom face"> </div>
+          </div>
+          <div class="mesa-p">
+            <div class="mesa-p__front face"> </div>
+            <div class="mesa-p__back face"> </div>
+            <div class="mesa-p__right face"> </div>
+            <div class="mesa-p__left face"> </div>
+            <div class="mesa-p__top face"> </div>
+            <div class="mesa-p__bottom face"> </div>
+          </div>
+          <div class="mesa-p">
+            <div class="mesa-p__front face"> </div>
+            <div class="mesa-p__back face"> </div>
+            <div class="mesa-p__right face"> </div>
+            <div class="mesa-p__left face"> </div>
+            <div class="mesa-p__top face"> </div>
+            <div class="mesa-p__bottom face"> </div>
+          </div>
+          <div class="mesa-p">
+            <div class="mesa-p__front face"> </div>
+            <div class="mesa-p__back face"> </div>
+            <div class="mesa-p__right face"> </div>
+            <div class="mesa-p__left face"> </div>
+            <div class="mesa-p__top face"> </div>
+            <div class="mesa-p__bottom face"> </div>
+          </div>
+          <div class="mesa-shadow"></div>
+        </div>
+        <div class="tablet">
+          <div class="tablet__front face"> </div>
+          <div class="tablet__back face"> </div>
+          <div class="tablet__right face"> </div>
+          <div class="tablet__left face"> </div>
+          <div class="tablet__top face"> </div>
+          <div class="tablet__bottom face">    </div>
+        </div>
+      </div>
+      
+      <!-- Balance counter (right side, top) -->
+      <div class="balance-counter">
+        <div class="balance-label">CLAWPITAL Balance</div>
+        <div class="balance-value" id="balanceValue">$1,234</div>
+        <div class="balance-metrics">
+          <button class="metric-btn" id="roiBtn">
+            <span class="metric-label">ROI</span>
+            <span class="metric-value" id="roiValue">+0.00%</span>
+          </button>
+          <button class="metric-btn" id="pnlBtn">
+            <span class="metric-label">PNL</span>
+            <span class="metric-value" id="pnlValue">+$0</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Social buttons (left side, vertical) -->
+      <div class="social-buttons">
+        <a href="https://x.com/i/communities/2019091644457365942" target="_blank" rel="noopener noreferrer" class="social-btn twitter-x-btn" aria-label="Twitter/X Community" title="Join our X Community">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        
+        <a href="https://pump.fun" target="_blank" rel="noopener noreferrer" class="social-btn pumpfun-btn" aria-label="PumpFun" title="PumpFun">
+          <img src="pumpfun-icon.png" alt="PumpFun" />
+        </a>
+        
+        <a href="https://github.com/openclaw/clawpital" target="_blank" rel="noopener noreferrer" class="social-btn github-btn" aria-label="GitHub" title="GitHub Repository">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        
+        <a href="#" class="social-btn dev-btn" aria-label="Dev" title="Developer">
+          <img src="dev-icon.png" alt="Dev" />
+        </a>
+        
+        <!-- Camera preset toggle -->
+        <div class="camera-toggle-wrapper">
+          <div class="camera-toggle">
+            <button class="toggle-btn" id="toggleDefault" data-mode="default">1</button>
+            <button class="toggle-btn" id="toggleCustom" data-mode="custom">2</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Taskbar for minimized windows -->
+      <div class="win-taskbar" id="winTaskbar">
+        <div class="win-taskbar-list" id="winTaskbarList"></div>
+      </div>
+
+      <!-- Modal Window -->
+      <div class="modal" id="projectModal" data-win-id="project" data-win-title="CLAWPITAL">
+        <div class="modal-content win-window">
+          <div class="win-titlebar">
+            <span class="win-title">CLAWPITAL</span>
+            <div class="win-controls">
+              <button type="button" class="win-btn win-btn-min" aria-label="Minimize">−</button>
+              <button type="button" class="win-btn win-btn-max" aria-label="Maximize">□</button>
+              <button type="button" class="win-btn win-btn-close" id="modalClose" aria-label="Close"><span class="win-icon-x"></span></button>
+            </div>
+          </div>
+          <div class="win-content modal-body">
+            <h2>CLAWPITAL</h2>
+            <p>CLAWPITAL is an autonomous AI investment agent built on OpenClaw that anyone can fork, deploy, and configure with custom instructions and risk parameters to trade on their behalf. It continuously researches crypto markets across DeFi yields, fundamentals, and alpha narratives, makes independent decisions, executes trades, and reports performance transparently in real time. There is no pooled capital and no central fund — each deployment operates as a sovereign agent fully controlled by its owner.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Documentation (books) -->
+      <div class="modal" id="docsModal" data-win-id="docs" data-win-title="Documentation" style="display: none;">
+        <div class="modal-content win-window docs-window">
+          <div class="win-titlebar">
+            <span class="win-title">CLAWPITAL — Technical Documentation</span>
+            <div class="win-controls">
+              <button type="button" class="win-btn win-btn-min" aria-label="Minimize">−</button>
+              <button type="button" class="win-btn win-btn-max" aria-label="Maximize">□</button>
+              <button type="button" class="win-btn win-btn-close" id="docsClose" aria-label="Close"><span class="win-icon-x"></span></button>
+            </div>
+          </div>
+          <div class="win-content modal-body docs-content">
+            <div class="docs-body">
+              <h1>CLAWPITAL Technical Documentation</h1>
+              <p class="docs-lead">Reference implementation and specification for the OpenClaw autonomous agent framework. This document describes architecture, APIs, deployment topology, and operational constraints.</p>
+
+              <h2>1. System Architecture</h2>
+              <p>The agent runtime is a stateful process that maintains an internal world model, executes a decision loop over configurable intervals, and interfaces with external execution and data providers via a well-defined adapter layer. The core loop is single-threaded; I/O is non-blocking and event-driven.</p>
+              <ul>
+                <li><strong>Orchestrator</strong>: Coordinates the think–decide–act cycle, manages lifecycle (start/pause/stop), and enforces rate limits and cooldowns.</li>
+                <li><strong>Narrative Engine</strong>: Ingests and scores market narratives from configured sources (on-chain, social, fundamental); outputs a ranked set of themes with confidence and decay.</li>
+                <li><strong>Execution Layer</strong>: Translates high-level actions into signed transactions; supports multiple chains and DEX/CEX adapters with a unified order interface.</li>
+                <li><strong>State Store</strong>: Persists positions, PnL, and audit trail; supports replay and reconciliation for compliance.</li>
+              </ul>
+
+              <h2>2. Configuration &amp; Risk Parameters</h2>
+              <p>All deployable parameters are expressed in a single manifest (YAML/JSON). Critical knobs include:</p>
+              <table class="docs-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr><td><code>max_position_size_usd</code></td><td>float</td><td>Upper bound per position in USD; enforced pre-trade.</td></tr>
+                  <tr><td><code>max_daily_drawdown_pct</code></td><td>float</td><td>Circuit breaker: halt new trades if daily equity drawdown exceeds this.</td></tr>
+                  <tr><td><code>narrative_min_heat</code></td><td>int</td><td>Minimum narrative score (0–100) to consider for allocation.</td></tr>
+                  <tr><td><code>think_interval_sec</code></td><td>int</td><td>Seconds between full think cycles.</td></tr>
+                  <tr><td><code>execution_slippage_bps</code></td><td>int</td><td>Max slippage in basis points for market orders.</td></tr>
+                </tbody>
+              </table>
+              <p>Override and validation rules are documented in the schema; invalid values cause the orchestrator to refuse startup and log a structured error.</p>
+
+              <h2>3. API Contract (Internal)</h2>
+              <p>The narrative engine exposes a single async method:</p>
+              <pre class="docs-code">NarrativeResult[] getNarratives(UniverseFilter filter, int topK)</pre>
+              <p>Returns a sorted list of narrative descriptors (id, theme, heat, sources, last_updated). The execution layer implements:</p>
+              <pre class="docs-code">OrderReceipt submitOrder(OrderRequest req) throws InsufficientLiquidityException, SlippageExceededException</pre>
+              <p>Idempotency is enforced via client-supplied <code>idempotency_key</code>; duplicate keys return the existing receipt without re-execution.</p>
+
+              <h2>4. Deployment Topology</h2>
+              <p>Recommended production topology: one orchestrator process per agent instance; state store (DB or key-value) and execution adapters can be shared or isolated per tenant. Network egress to blockchains and third-party APIs is rate-limited and retried with exponential backoff. No shared mutable in-memory state between instances.</p>
+
+              <h2>5. Security &amp; Key Management</h2>
+              <p>Signing keys must never be exported from the execution environment. Use HSM or enclave-backed signers where available. API keys and RPC endpoints are injected via environment or secret manager; they must not appear in manifests or logs. All sensitive fields are redacted in audit logs.</p>
+
+              <h2>6. Observability</h2>
+              <p>Structured logs (JSON) with correlation IDs for each think cycle and order. Metrics: think_duration_sec, orders_submitted_total, orders_filled_total, pnl_realized_usd. Alerts should be configured on max_daily_drawdown_pct breach and on consecutive execution failures.</p>
+
+              <h2>7. Versioning &amp; Compatibility</h2>
+              <p>Manifest schema is versioned; the runtime rejects manifests with an unsupported <code>schema_version</code>. Adapter interfaces are backward-compatible within major versions; new optional fields may be added without breaking existing implementations.</p>
+
+              <h2>8. References</h2>
+              <p>OpenClaw specification: <a href="https://github.com/openclaw/clawpital" class="docs-link">github.com/openclaw/clawpital</a>. For deployment steps and manifest examples, see the repository README and the Deploy panel in this application.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pixel-style Manifest Modal -->
+      <div class="modal" id="manifestModal" data-win-id="manifest" data-win-title="MANIFEST.TXT">
+        <div class="pixel-modal win-window">
+          <div class="win-titlebar">
+            <span class="win-title">CLAWPITAL_MANIFEST.TXT</span>
+            <div class="win-controls">
+              <button type="button" class="win-btn win-btn-min" aria-label="Minimize">−</button>
+              <button type="button" class="win-btn win-btn-max" aria-label="Maximize">□</button>
+              <button type="button" class="win-btn win-btn-close" id="manifestClose" aria-label="Close"><span class="win-icon-x"></span></button>
+            </div>
+          </div>
+          <div class="pixel-content win-content">
+            <div class="manifest-text" id="manifestText"></div>
+            <div class="typing-cursor">|</div>
+          </div>
+          <div class="pixel-footer">
+            <div class="pixel-footer-left">
+              <button class="pixel-btn pixel-btn-skip">SKIP →</button>
+              <button class="pixel-btn pixel-btn-github">GITHUB</button>
+            </div>
+            <div class="pixel-footer-right">
+              <span class="pixel-status">LOADING MANIFEST ...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- DApp overlay (открывается при клике на телевизор) -->
+      <div class="dapp-overlay" id="tvDappOverlay" aria-hidden="true" data-win-id="dapp" data-win-title="DApp">
+        <div class="dapp-frame win-window">
+          <div class="win-titlebar">
+            <span class="win-title">CLAWPITAL — DApp</span>
+            <div class="win-controls">
+              <button type="button" class="win-btn win-btn-min" aria-label="Minimize">−</button>
+              <button type="button" class="win-btn win-btn-max" aria-label="Maximize">□</button>
+              <button type="button" class="win-btn win-btn-close" id="dappClose" aria-label="Close"><span class="win-icon-x"></span></button>
+            </div>
+          </div>
+          <header class="dapp-topbar dapp-topbar-inner">
+            <span class="dapp-agent-name">CLAWPITAL</span>
+            <span class="dapp-status" id="dappStatus">THINKING</span>
+            <span class="dapp-heartbeat" id="dappHeartbeat">—</span>
+          </header>
+          <div class="dapp-main win-content">
+            <section class="dapp-panel dapp-panel-think is-active" id="dappPanelThink" data-panel="think">
+              <div class="dapp-think-header">
+                <h3>Model thinking & narrative search</h3>
+              </div>
+              <div class="capital-allocation">
+                <h4>Capital Allocation</h4>
+                <div class="capital-chart" id="capitalChart"></div>
+                <div class="capital-table" id="capitalTable"></div>
+              </div>
+              <div class="dapp-think-log" id="dappThinkLog"></div>
+              <div class="dapp-think-results" id="dappThinkResults"></div>
+            </section>
+            <section class="dapp-panel dapp-panel-feed" id="dappPanelFeed" data-panel="feed">
+              <div class="dapp-feed-wrap">
+                <div class="dapp-feed" id="dappFeed"></div>
+              </div>
+            </section>
+            <section class="dapp-panel dapp-panel-narratives" id="dappPanelNarratives" data-panel="narratives">
+              <div class="narratives-list" id="narrativesList"></div>
+            </section>
+            <section class="dapp-panel dapp-panel-wallet" id="dappPanelWallet" data-panel="wallet">
+              <div class="dapp-wallet-card" id="dappWalletCard"></div>
+            </section>
+            <section class="dapp-panel dapp-panel-polymarket" id="dappPanelPolymarket" data-panel="polymarket">
+              <div class="polymarket-events" id="polymarketEvents"></div>
+            </section>
+            <section class="dapp-panel dapp-panel-history" id="dappPanelHistory" data-panel="history">
+              <div class="dapp-history-table-wrap">
+                <table class="dapp-history-table" id="dappHistoryTable">
+                  <thead><tr><th>Time</th><th>Action</th><th>Asset</th><th>Amount</th><th>Entry</th><th>Current</th><th>P&L</th></tr></thead>
+                  <tbody id="dappHistoryBody"></tbody>
+                </table>
+              </div>
+            </section>
+            
+            <!-- Trade Detail Window -->
+            <div class="win-window trade-detail-window" id="tradeDetailWindow" data-win-id="trade-detail" style="display: none;">
+              <div class="win-titlebar">
+                <span class="win-title">Trade Details</span>
+                <div class="win-titlebar-btns">
+                  <button type="button" class="win-btn win-btn-min" aria-label="Minimize"><span>—</span></button>
+                  <button type="button" class="win-btn win-btn-max" aria-label="Maximize"><span>□</span></button>
+                  <button type="button" class="win-btn win-btn-close" id="tradeDetailClose" aria-label="Close"><span class="win-icon-x"></span></button>
+                </div>
+              </div>
+              <div class="win-content trade-detail-body" id="tradeDetailBody"></div>
+            </div>
+            
+            <!-- Narrative Detail Window -->
+            <div class="win-window narrative-detail-window" id="narrativeDetailWindow" data-win-id="narrative-detail" style="display: none;">
+              <div class="win-titlebar">
+                <span class="win-title">Narrative Analysis</span>
+                <div class="win-titlebar-btns">
+                  <button type="button" class="win-btn win-btn-min" aria-label="Minimize"><span>—</span></button>
+                  <button type="button" class="win-btn win-btn-max" aria-label="Maximize"><span>□</span></button>
+                  <button type="button" class="win-btn win-btn-close" id="narrativeDetailClose" aria-label="Close"><span class="win-icon-x"></span></button>
+                </div>
+              </div>
+              <div class="win-content narrative-detail-body" id="narrativeDetailBody"></div>
+            </div>
+            <aside class="dapp-sidebar">
+              <div class="dapp-positions">
+                <h3>Open positions</h3>
+                <div class="dapp-positions-list" id="dappPositions"></div>
+              </div>
+              <div class="dapp-metrics">
+                <h3>Metrics</h3>
+                <div class="dapp-metric"><span>Daily PnL</span><span class="dapp-metric-value" id="metricDailyPnl">0.00</span></div>
+                <div class="dapp-metric"><span>Weekly PnL</span><span class="dapp-metric-value" id="metricWeeklyPnl">0.00</span></div>
+                <div class="dapp-metric"><span>Win rate</span><span class="dapp-metric-value" id="metricWinrate">0%</span></div>
+                <div class="dapp-metric"><span>Drawdown</span><span class="dapp-metric-value" id="metricDrawdown">0%</span></div>
+              </div>
+            </aside>
+          </div>
+          <nav class="dapp-tabs">
+            <button type="button" class="dapp-tab active" data-tab="think">Think</button>
+            <button type="button" class="dapp-tab" data-tab="feed">Feed</button>
+            <button type="button" class="dapp-tab" data-tab="narratives">Narratives</button>
+            <button type="button" class="dapp-tab" data-tab="polymarket">Polymarket</button>
+            <button type="button" class="dapp-tab" data-tab="wallet">Wallet</button>
+            <button type="button" class="dapp-tab" data-tab="history">History</button>
+          </nav>
+        </div>
+      </div>
+      
+      <!-- Painting focus: dimmer (click to exit) -->
+      <div class="painting-dimmer" id="paintingDimmer"></div>
+      
+      <!-- Left painting overlay: Narratives / Memes -->
+      <div class="painting-overlay" id="narrativesOverlay" data-win-id="narratives" data-win-title="Narratives">
+        <div class="painting-panel painting-panel-narratives win-window">
+          <div class="win-titlebar">
+            <span class="win-title">Narratives</span>
+            <div class="win-controls">
+              <button type="button" class="win-btn win-btn-min" aria-label="Minimize">−</button>
+              <button type="button" class="win-btn win-btn-max" aria-label="Maximize">□</button>
+              <button type="button" class="win-btn win-btn-close painting-close" data-close="narratives" aria-label="Close"><span class="win-icon-x"></span></button>
+            </div>
+          </div>
+          <div class="win-content painting-panel-scroll-wrap">
+          <div class="painting-panel-scroll" id="narrativesList">
+            <article class="narrative-card" data-heat="72">
+              <div class="narrative-card-header">
+                <span class="narrative-name">Pump.fun momentum</span>
+                <span class="narrative-status status-watching">watching</span>
+              </div>
+              <p class="narrative-desc">Meme coins trending on pump.fun, volume spike</p>
+              <div class="narrative-meta">
+                <span class="narrative-heat"><span class="heat-value">72</span> heat</span>
+                <span class="narrative-sources">
+                  <span class="src-icon" title="X">𝕏</span>
+                  <span class="src-icon" title="Telegram">TG</span>
+                  <span class="src-icon" title="Onchain">⟠</span>
+                </span>
+              </div>
+            </article>
+            <article class="narrative-card" data-heat="88">
+              <div class="narrative-card-header">
+                <span class="narrative-name">Restaking yields</span>
+                <span class="narrative-status status-active">active</span>
+              </div>
+              <p class="narrative-desc">EigenLayer AVS and LRT allocation shifts</p>
+              <div class="narrative-meta">
+                <span class="narrative-heat"><span class="heat-value">88</span> heat</span>
+                <span class="narrative-sources">
+                  <span class="src-icon">𝕏</span>
+                  <span class="src-icon">TG</span>
+                  <span class="src-icon">⟠</span>
+                </span>
+              </div>
+            </article>
+            <article class="narrative-card" data-heat="45">
+              <div class="narrative-card-header">
+                <span class="narrative-name">Base L2 adoption</span>
+                <span class="narrative-status status-observing">observing</span>
+              </div>
+              <p class="narrative-desc">Base chain fees and DEX volume narrative</p>
+              <div class="narrative-meta">
+                <span class="narrative-heat"><span class="heat-value">45</span> heat</span>
+                <span class="narrative-sources">
+                  <span class="src-icon">𝕏</span>
+                  <span class="src-icon">⟠</span>
+                </span>
+              </div>
+            </article>
+            <article class="narrative-card" data-heat="62">
+              <div class="narrative-card-header">
+                <span class="narrative-name">AI agent tokens</span>
+                <span class="narrative-status status-exited">exited</span>
+              </div>
+              <p class="narrative-desc">Tokenized AI agents and inference demand</p>
+              <div class="narrative-meta">
+                <span class="narrative-heat"><span class="heat-value">62</span> heat</span>
+                <span class="narrative-sources">
+                  <span class="src-icon">𝕏</span>
+                  <span class="src-icon">TG</span>
+                </span>
+              </div>
+            </article>
+          </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right painting overlay: Agents / Performance -->
+      <div class="painting-overlay" id="agentsOverlay" data-win-id="agents" data-win-title="Agents">
+        <div class="painting-panel painting-panel-agents win-window">
+          <div class="win-titlebar">
+            <span class="win-title">Agents</span>
+            <div class="win-controls">
+              <button type="button" class="win-btn win-btn-min" aria-label="Minimize">−</button>
+              <button type="button" class="win-btn win-btn-max" aria-label="Maximize">□</button>
+              <button type="button" class="win-btn win-btn-close painting-close" data-close="agents" aria-label="Close"><span class="win-icon-x"></span></button>
+            </div>
+          </div>
+          <div class="win-content painting-panel-grid-wrap">
+          <div class="painting-panel-grid" id="agentsList">
+            <article class="agent-card agent-card-expandable" data-agent-id="1">
+              <div class="agent-avatar">C1</div>
+              <div class="agent-info">
+                <span class="agent-name">Alpha Runner</span>
+                <span class="agent-strategy">Momentum</span>
+                <span class="agent-pnl positive">+4.2% 24h</span>
+                <span class="agent-status status-live">live</span>
+              </div>
+              <div class="agent-card-expanded">
+                <div class="agent-equity-label">Equity curve</div>
+                <div class="agent-equity-placeholder"></div>
+                <div class="agent-trades">Recent: ETH +0.5%, AVAX +0.2%</div>
+                <div class="agent-metrics">Win rate 62% · Drawdown 1.8%</div>
+              </div>
+            </article>
+            <article class="agent-card agent-card-expandable" data-agent-id="2">
+              <div class="agent-avatar">C2</div>
+              <div class="agent-info">
+                <span class="agent-name">Yield Scout</span>
+                <span class="agent-strategy">DeFi</span>
+                <span class="agent-pnl positive">+1.8% 7d</span>
+                <span class="agent-status status-live">live</span>
+              </div>
+              <div class="agent-card-expanded">
+                <div class="agent-equity-label">Equity curve</div>
+                <div class="agent-equity-placeholder"></div>
+                <div class="agent-trades">Recent: stETH, rETH rebalance</div>
+                <div class="agent-metrics">Win rate 55% · Drawdown 0.9%</div>
+              </div>
+            </article>
+            <article class="agent-card agent-card-expandable" data-agent-id="3">
+              <div class="agent-avatar">C3</div>
+              <div class="agent-info">
+                <span class="agent-name">Meme Tracker</span>
+                <span class="agent-strategy">Narratives</span>
+                <span class="agent-pnl negative">-0.5% 24h</span>
+                <span class="agent-status status-paused">paused</span>
+              </div>
+              <div class="agent-card-expanded">
+                <div class="agent-equity-label">Equity curve</div>
+                <div class="agent-equity-placeholder"></div>
+                <div class="agent-trades">Recent: PEPE exit -0.5%</div>
+                <div class="agent-metrics">Win rate 48% · Drawdown 3.2%</div>
+              </div>
+            </article>
+            <article class="agent-card agent-card-expandable" data-agent-id="4">
+              <div class="agent-avatar">C4</div>
+              <div class="agent-info">
+                <span class="agent-name">Steady DCA</span>
+                <span class="agent-strategy">Fundamentals</span>
+                <span class="agent-pnl positive">+2.1% 7d</span>
+                <span class="agent-status status-live">live</span>
+              </div>
+              <div class="agent-card-expanded">
+                <div class="agent-equity-label">Equity curve</div>
+                <div class="agent-equity-placeholder"></div>
+                <div class="agent-trades">Recent: ETH +0.3%, SOL -0.1%</div>
+                <div class="agent-metrics">Win rate 58% · Drawdown 2.1%</div>
+              </div>
+            </article>
+          </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Observation mode (sofa): minimal overlay -->
+      <div class="observation-dimmer" id="observationDimmer"></div>
+      <div class="observation-overlay" id="observationOverlay" data-win-id="observation" data-win-title="Observation">
+        <div class="observation-panel win-window">
+          <div class="win-titlebar">
+            <span class="win-title">Observation</span>
+            <div class="win-controls">
+              <button type="button" class="win-btn win-btn-min" aria-label="Minimize">−</button>
+              <button type="button" class="win-btn win-btn-max" aria-label="Maximize">□</button>
+              <button type="button" class="win-btn win-btn-close" id="observationClose" aria-label="Close"><span class="win-icon-x"></span></button>
+            </div>
+          </div>
+          <div class="win-content">
+            <div class="observation-status" id="observationStatus">THINKING</div>
+            <div class="observation-feed" id="observationFeed"></div>
+            <button type="button" class="observation-stand-up" id="observationStandUp">Stand up</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Deploy mode (door): multi-step overlay -->
+      <div class="deploy-dimmer" id="deployDimmer"></div>
+      <div class="deploy-overlay" id="deployOverlay" data-win-id="deploy" data-win-title="Deploy">
+        <div class="deploy-panel win-window">
+          <div class="win-titlebar">
+            <span class="win-title">Deploy your agent</span>
+            <div class="win-controls">
+              <button type="button" class="win-btn win-btn-min" aria-label="Minimize">−</button>
+              <button type="button" class="win-btn win-btn-max" aria-label="Maximize">□</button>
+              <button type="button" class="win-btn win-btn-close" id="deployClose" aria-label="Close"><span class="win-icon-x"></span></button>
+            </div>
+          </div>
+          <div class="win-content deploy-body">
+          <h2 class="deploy-title">Deploy your agent</h2>
+          <div class="deploy-steps">
+            <div class="deploy-step" data-step="1">
+              <h3>Agent setup</h3>
+              <label>Agent name <input type="text" class="deploy-input" id="deployAgentName" placeholder="My Agent" maxlength="24"></label>
+              <div class="deploy-avatars" id="deployAvatars">
+                <button type="button" class="deploy-avatar active" data-avatar="A1">A1</button>
+                <button type="button" class="deploy-avatar" data-avatar="A2">A2</button>
+                <button type="button" class="deploy-avatar" data-avatar="A3">A3</button>
+                <button type="button" class="deploy-avatar" data-avatar="A4">A4</button>
+              </div>
+            </div>
+            <div class="deploy-step" data-step="2">
+              <h3>Strategy</h3>
+              <div class="deploy-strategies">
+                <button type="button" class="deploy-strategy" data-strategy="yield">Yield Hunter</button>
+                <button type="button" class="deploy-strategy" data-strategy="meme">Meme Sniper</button>
+                <button type="button" class="deploy-strategy" data-strategy="fundamental">Fundamental Scout</button>
+                <button type="button" class="deploy-strategy" data-strategy="hybrid">Hybrid</button>
+              </div>
+            </div>
+            <div class="deploy-step" data-step="3">
+              <h3>Risk parameters</h3>
+              <label>Risk level
+                <select class="deploy-select" id="deployRisk">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+              <label>Max allocation % <input type="number" class="deploy-input deploy-input-num" id="deployCap" value="20" min="5" max="100"></label>
+            </div>
+            <div class="deploy-step deploy-step-launch" data-step="4">
+              <h3>Launch</h3>
+              <div class="deploy-launch-state" id="deployLaunchState">
+                <button type="button" class="deploy-btn" id="deployBtn">Deploy</button>
+              </div>
+              <div class="deploy-confirmation" id="deployConfirmation">
+                <p class="deploy-agent-id">Agent ID: <span id="deployAgentId">—</span></p>
+                <a href="#" class="deploy-profile-link" id="deployProfileLink">Open agent profile</a>
+              </div>
+            </div>
+          </div>
+          <div class="deploy-github-section">
+            <h3>Deploy your agent</h3>
+            <a href="https://github.com/openclaw/clawpital" target="_blank" rel="noopener" class="deploy-github-link">GitHub: OpenClaw / Clawpital</a>
+            <ol class="deploy-instructions">
+              <li>Fork the <strong>Clawpital</strong> repo on GitHub.</li>
+              <li>Clone your fork and set environment variables (API keys, RPC, wallet).</li>
+              <li>Configure agent instructions and risk parameters in the config.</li>
+              <li>Run the agent (local or deploy to a server/cloud).</li>
+              <li>Connect your wallet and fund the agent’s trading account.</li>
+            </ol>
+          </div>
+          <div class="deploy-nav">
+            <button type="button" class="deploy-nav-btn" id="deployPrev">Back</button>
+            <button type="button" class="deploy-nav-btn" id="deployNext">Next</button>
+            <button type="button" class="deploy-cancel" id="deployCancel">Cancel</button>
+          </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
