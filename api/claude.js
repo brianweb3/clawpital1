@@ -16,7 +16,8 @@ export default async function handler(req, res) {
 
     const apiKey = process.env.CLAUDE_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: 'Claude API key not configured' });
+      console.error('CLAUDE_API_KEY not found in environment variables');
+      return res.status(500).json({ error: 'Claude API key not configured. Please add CLAUDE_API_KEY to Vercel environment variables.' });
     }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {

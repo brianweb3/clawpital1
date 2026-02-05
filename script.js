@@ -2192,6 +2192,8 @@ function openPaintingLeft() {
     transitionCamera(PAINTING_LEFT, 1200);
     setTimeout(function() {
         if (narrativesOverlay) narrativesOverlay.classList.add('is-visible');
+        // Attach handlers after overlay is visible
+        setTimeout(attachNarrativeHandlers, 100);
     }, 1200);
 }
 
@@ -2290,8 +2292,16 @@ function typeAIExplanation(text, element, speed) {
 }
 
 function explainNarrative(narrativeData) {
+    console.log('explainNarrative called with:', narrativeData);
     const aiContent = document.getElementById('narrativeAIContent');
-    if (!aiContent || !narrativeData) return;
+    if (!aiContent) {
+        console.error('narrativeAIContent element not found');
+        return;
+    }
+    if (!narrativeData) {
+        console.error('narrativeData is missing');
+        return;
+    }
     
     // Highlight selected card
     const cards = document.querySelectorAll('.narrative-card');
@@ -2305,6 +2315,7 @@ function explainNarrative(narrativeData) {
     
     // Clear content and show loading
     aiContent.innerHTML = '<div class="narrative-ai-typing">Analyzing narrative: ' + narrativeData.name + '...<span class="narrative-ai-cursor">|</span></div>';
+    console.log('Loading message displayed, calling API...');
     
     // Use server-side proxy to avoid CORS issues
     const prompt = 'Analyze this crypto narrative in detail:\n\n' +
@@ -2328,7 +2339,13 @@ function explainNarrative(narrativeData) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ prompt: prompt })
         }).then(function(r) { 
-            if (!r.ok) throw new Error('API error: ' + r.status);
+            if (!r.ok) {
+                return r.json().then(function(errData) {
+                    throw new Error(errData.error || 'API error: ' + r.status);
+                }).catch(function() {
+                    throw new Error('API error: ' + r.status);
+                });
+            }
             return r.json(); 
         }).then(function(data) {
             const aiText = data.text || '';
@@ -2340,18 +2357,20 @@ function explainNarrative(narrativeData) {
                 aiContent.innerHTML = '';
                 typeAIExplanation(fullExplanation, aiContent, 15);
             } else {
-                fallbackExplanation(narrativeData, aiContent);
+                console.warn('Claude API returned empty text');
+                fallbackExplanation(narrativeData, aiContent, 'Claude API returned empty response');
             }
         }).catch(function(err) {
             console.error('Claude API error:', err);
-            fallbackExplanation(narrativeData, aiContent);
+            fallbackExplanation(narrativeData, aiContent, 'Error: ' + (err.message || 'Failed to fetch AI explanation'));
         });
     } else {
-        fallbackExplanation(narrativeData, aiContent);
+        console.warn('No API base URL found');
+        fallbackExplanation(narrativeData, aiContent, 'API base URL not available');
     }
 }
 
-function fallbackExplanation(narrativeData, aiContent) {
+function fallbackExplanation(narrativeData, aiContent, errorMsg) {
     const explanation = 'Analyzing narrative: ' + narrativeData.name + '\n\n' +
         'Heat Score: ' + narrativeData.heat + '/100\n' +
         'Status: ' + narrativeData.status.toUpperCase() + '\n' +
@@ -2361,46 +2380,90 @@ function fallbackExplanation(narrativeData, aiContent) {
         'Key Factors:\n' +
         narrativeData.factors + '\n\n' +
         'Detailed Analysis:\n' +
-        narrativeData.fullAnalysis + '\n\n' +
-        '(Note: Set CLAUDE_API_KEY in config.js for AI-generated explanations)';
+        narrativeData.fullAnalysis;
+    
+    if (errorMsg) {
+        explanation += '\n\n[Note: ' + errorMsg + '. Check Vercel environment variables for CLAUDE_API_KEY]';
+    } else {
+        explanation += '\n\n[Note: Using fallback explanation. Set CLAUDE_API_KEY in Vercel environment variables for AI-generated explanations]';
+    }
     
     aiContent.innerHTML = '';
     typeAIExplanation(explanation, aiContent, 15);
 }
 
 // Add click handlers for narrative cards in painting left
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-        const narrativesList = document.getElementById('narrativesList');
-        if (narrativesList) {
-            const cards = narrativesList.querySelectorAll('.narrative-card');
-            cards.forEach(function(card) {
-                card.style.cursor = 'pointer';
-                card.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const heat = parseInt(card.getAttribute('data-heat')) || 0;
-                    const nameEl = card.querySelector('.narrative-name');
-                    const name = nameEl ? nameEl.textContent.trim() : '';
-                    
-                    // Find matching narrative data
-                    let narrativeData = null;
-                    if (name.includes('Pump.fun')) {
-                        narrativeData = paintingNarratives['pumpfun-momentum'];
-                    } else if (name.includes('Restaking')) {
-                        narrativeData = paintingNarratives['restaking-yields'];
-                    } else if (name.includes('Base')) {
-                        narrativeData = paintingNarratives['base-l2-adoption'];
-                    } else if (name.includes('AI agent')) {
-                        narrativeData = paintingNarratives['ai-agent-tokens'];
-                    }
-                    
-                    if (narrativeData) {
-                        explainNarrative(narrativeData);
-                    }
-                });
+function attachNarrativeHandlers() {
+    const narrativesList = document.getElementById('narrativesList');
+    if (narrativesList) {
+        const cards = narrativesList.querySelectorAll('.narrative-card');
+        console.log('Found', cards.length, 'narrative cards');
+        cards.forEach(function(card) {
+            card.style.cursor = 'pointer';
+            // Remove existing listeners to avoid duplicates
+            const newCard = card.cloneNode(true);
+            card.parentNode.replaceChild(newCard, card);
+            
+            newCard.addEventListener('click', function(e) {
+                e.stopPropagation();
+                console.log('Narrative card clicked');
+                const heat = parseInt(newCard.getAttribute('data-heat')) || 0;
+                const nameEl = newCard.querySelector('.narrative-name');
+                const name = nameEl ? nameEl.textContent.trim() : '';
+                console.log('Narrative name:', name);
+                
+                // Find matching narrative data
+                let narrativeData = null;
+                if (name.includes('Pump.fun') || name.includes('pumpfun')) {
+                    narrativeData = paintingNarratives['pumpfun-momentum'];
+                } else if (name.includes('Restaking') || name.includes('restaking')) {
+                    narrativeData = paintingNarratives['restaking-yields'];
+                } else if (name.includes('Base') || name.includes('base')) {
+                    narrativeData = paintingNarratives['base-l2-adoption'];
+                } else if (name.includes('AI agent') || name.includes('ai-agent')) {
+                    narrativeData = paintingNarratives['ai-agent-tokens'];
+                }
+                
+                if (narrativeData) {
+                    console.log('Found narrative data, calling explainNarrative');
+                    explainNarrative(narrativeData);
+                } else {
+                    console.warn('No narrative data found for:', name);
+                }
             });
+        });
+    } else {
+        console.warn('narrativesList not found');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(attachNarrativeHandlers, 500);
+});
+
+// Also attach when narratives overlay opens - use event delegation
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.narrative-card')) {
+        const card = e.target.closest('.narrative-card');
+        const nameEl = card.querySelector('.narrative-name');
+        if (nameEl) {
+            const name = nameEl.textContent.trim();
+            let narrativeData = null;
+            if (name.includes('Pump.fun') || name.includes('pumpfun')) {
+                narrativeData = paintingNarratives['pumpfun-momentum'];
+            } else if (name.includes('Restaking') || name.includes('restaking')) {
+                narrativeData = paintingNarratives['restaking-yields'];
+            } else if (name.includes('Base') || name.includes('base')) {
+                narrativeData = paintingNarratives['base-l2-adoption'];
+            } else if (name.includes('AI agent') || name.includes('ai-agent')) {
+                narrativeData = paintingNarratives['ai-agent-tokens'];
+            }
+            if (narrativeData) {
+                e.stopPropagation();
+                explainNarrative(narrativeData);
+            }
         }
-    }, 500);
+    }
 });
 if (cuadroR) {
     cuadroR.addEventListener('click', function(e) {
