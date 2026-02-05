@@ -53,7 +53,9 @@ clawpital/
 ├── style.css           # Styles and Windows 95 UI theme
 ├── script.js           # Application logic and API integration
 ├── api/
-│   └── trades.js       # API: last 50 trades (Vercel Blob)
+│   ├── trades.js       # API: last 50 trades (Vercel Blob)
+│   ├── balance.js      # API: balance persistence (Vercel Blob)
+│   └── claude.js       # API: Claude AI proxy for narrative explanations
 ├── clawpital.png       # Logo
 └── README.md           # This file
 ```

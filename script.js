@@ -2293,22 +2293,6 @@ function explainNarrative(narrativeData) {
     const aiContent = document.getElementById('narrativeAIContent');
     if (!aiContent || !narrativeData) return;
     
-    // Generate AI explanation text
-    const explanation = 'Analyzing narrative: ' + narrativeData.name + '\n\n' +
-        'Heat Score: ' + narrativeData.heat + '/100\n' +
-        'Status: ' + narrativeData.status.toUpperCase() + '\n' +
-        '24h Change: ' + (narrativeData.change >= 0 ? '+' : '') + narrativeData.change + '%\n\n' +
-        'Model Assessment:\n' +
-        narrativeData.reasoning + '\n\n' +
-        'Key Factors:\n' +
-        narrativeData.factors + '\n\n' +
-        'Detailed Analysis:\n' +
-        narrativeData.fullAnalysis;
-    
-    // Clear and start typing
-    aiContent.innerHTML = '';
-    typeAIExplanation(explanation, aiContent, 15);
-    
     // Highlight selected card
     const cards = document.querySelectorAll('.narrative-card');
     cards.forEach(function(card) {
@@ -2318,6 +2302,70 @@ function explainNarrative(narrativeData) {
             card.classList.add('narrative-card-selected');
         }
     });
+    
+    // Clear content and show loading
+    aiContent.innerHTML = '<div class="narrative-ai-typing">Analyzing narrative: ' + narrativeData.name + '...<span class="narrative-ai-cursor">|</span></div>';
+    
+    // Use server-side proxy to avoid CORS issues
+    const prompt = 'Analyze this crypto narrative in detail:\n\n' +
+        'Name: ' + narrativeData.name + '\n' +
+        'Heat Score: ' + narrativeData.heat + '/100\n' +
+        'Status: ' + narrativeData.status + '\n' +
+        '24h Change: ' + (narrativeData.change >= 0 ? '+' : '') + narrativeData.change + '%\n' +
+        'Summary: ' + narrativeData.summary + '\n\n' +
+        'Provide a detailed analysis including:\n' +
+        '1. Why this narrative is important\n' +
+        '2. Key factors driving it\n' +
+        '3. Risk assessment\n' +
+        '4. Trading/investment implications\n' +
+        '5. What to watch for\n\n' +
+        'Write in a clear, professional style as if you are a crypto trading AI agent explaining to your owner.';
+    
+    const base = getApiBase();
+    if (base) {
+        fetch(base + '/api/claude', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: prompt })
+        }).then(function(r) { 
+            if (!r.ok) throw new Error('API error: ' + r.status);
+            return r.json(); 
+        }).then(function(data) {
+            const aiText = data.text || '';
+            if (aiText) {
+                const fullExplanation = 'Narrative: ' + narrativeData.name + '\n' +
+                    'Heat: ' + narrativeData.heat + '/100 | Status: ' + narrativeData.status.toUpperCase() + 
+                    ' | Change: ' + (narrativeData.change >= 0 ? '+' : '') + narrativeData.change + '%\n\n' +
+                    aiText;
+                aiContent.innerHTML = '';
+                typeAIExplanation(fullExplanation, aiContent, 15);
+            } else {
+                fallbackExplanation(narrativeData, aiContent);
+            }
+        }).catch(function(err) {
+            console.error('Claude API error:', err);
+            fallbackExplanation(narrativeData, aiContent);
+        });
+    } else {
+        fallbackExplanation(narrativeData, aiContent);
+    }
+}
+
+function fallbackExplanation(narrativeData, aiContent) {
+    const explanation = 'Analyzing narrative: ' + narrativeData.name + '\n\n' +
+        'Heat Score: ' + narrativeData.heat + '/100\n' +
+        'Status: ' + narrativeData.status.toUpperCase() + '\n' +
+        '24h Change: ' + (narrativeData.change >= 0 ? '+' : '') + narrativeData.change + '%\n\n' +
+        'Model Assessment:\n' +
+        narrativeData.reasoning + '\n\n' +
+        'Key Factors:\n' +
+        narrativeData.factors + '\n\n' +
+        'Detailed Analysis:\n' +
+        narrativeData.fullAnalysis + '\n\n' +
+        '(Note: Set CLAUDE_API_KEY in config.js for AI-generated explanations)';
+    
+    aiContent.innerHTML = '';
+    typeAIExplanation(explanation, aiContent, 15);
 }
 
 // Add click handlers for narrative cards in painting left
@@ -2798,7 +2846,7 @@ function updateBalance() {
     if (!balanceValueEl) return;
     
     // Update balance (simulate growth)
-    currentBalance += 2;
+    currentBalance += 0.2;
     
     // Sync capital allocation with new balance
     const currentTotal = Object.values(capitalAllocation).reduce((sum, item) => sum + item.amount, 0);
