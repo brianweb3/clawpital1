@@ -3,7 +3,7 @@
 <div align="center">
   <img src="clawpital.png" alt="CLAWPITAL Logo" width="200"/>
   
-  [![Twitter](https://img.shields.io/twitter/follow/harryhrndz?style=social)](https://x.com/harryhrndz)
+  [![Twitter](https://img.shields.io/twitter/follow/astinmacdo?style=social)](https://x.com/astinmacdo)
 </div>
 
 ## About
@@ -66,7 +66,7 @@ The last **50 trades** and summary info are stored in **Vercel Blob**. After dep
 
 ## Social Media
 
-- **Twitter/X (разработчик)**: [@harryhrndz](https://x.com/harryhrndz)
+- **Twitter/X (разработчик)**: [@astinmacdo](https://x.com/astinmacdo)
 
 ## License
 
